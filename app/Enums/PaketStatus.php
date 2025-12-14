@@ -4,18 +4,20 @@ namespace App\Enums;
 
 enum PaketStatus: string
 {
+    case BELUM_DIAMBIL = 'belum_diambil';
+    case DIAMBIL = 'diambil';
     case DITERIMA = 'diterima';
-    case DIPROSES = 'diproses';
-    case DIANTAR = 'diantar';
+    case SALAH_WILAYAH = 'salah_wilayah';
     case SELESAI = 'selesai';
     case DIKEMBALIKAN = 'dikembalikan';
 
     public function label(): string
     {
         return match($this) {
+            self::BELUM_DIAMBIL => 'Belum Diambil',
+            self::DIAMBIL => 'Diambil',
             self::DITERIMA => 'Diterima',
-            self::DIPROSES => 'Diproses',
-            self::DIANTAR => 'Diantar',
+            self::SALAH_WILAYAH => 'Salah Wilayah',
             self::SELESAI => 'Selesai',
             self::DIKEMBALIKAN => 'Dikembalikan',
         };
