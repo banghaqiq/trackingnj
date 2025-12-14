@@ -1,59 +1,324 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Paket Masuk/Keluar System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern web application for managing incoming and outgoing parcels, built with Laravel 12, Tailwind CSS, Vite, and multi-language support (Indonesian & English).
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+✨ **Key Features**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- 📦 **Parcel Management System** - Track incoming and outgoing parcels
+- 🌍 **Multi-Language Support** - Indonesian (id) and English (en) with session-based switching
+- 🎨 **Modern UI** - Built with Tailwind CSS and responsive design
+- 🌙 **Dark Mode** - Automatic dark mode support via system preferences
+- ⚡ **Fast Development** - Vite for rapid development with HMR
+- 📅 **Smart Date Handling** - Timezone set to Asia/Jakarta with yyyy-mm-dd format
+- 🔐 **Secure** - CSRF protection and modern security practices
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Quick Start
 
-## Learning Laravel
+### Prerequisites
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+- PHP 8.3+
+- Node.js 18+ and npm
+- MySQL 5.7+ or MariaDB
+- Composer
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Installation & Setup
 
-## Laravel Sponsors
+```bash
+# 1. Install PHP dependencies
+composer install
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+# 2. Install frontend dependencies
+npm install
 
-### Premium Partners
+# 3. Setup environment
+cp .env.example .env
+php artisan key:generate
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+# 4. Configure database (edit .env file)
+# DB_DATABASE=paket_system
+# DB_USERNAME=root
+# DB_PASSWORD=
 
-## Contributing
+# 5. Run migrations
+php artisan migrate
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# 6. Build frontend assets
+npm run build
+```
 
-## Code of Conduct
+### Running the Application
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**Terminal 1 - Start Laravel Development Server:**
+```bash
+php artisan serve
+```
 
-## Security Vulnerabilities
+**Terminal 2 - Start Frontend Development Server (with hot reload):**
+```bash
+npm run dev
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Then open your browser and navigate to `http://localhost:8000`
+
+## Configuration
+
+### Language & Timezone Settings
+
+The application is pre-configured with:
+
+| Setting | Value |
+|---------|-------|
+| **Timezone** | Asia/Jakarta |
+| **Default Locale** | Indonesian (id) |
+| **Fallback Locale** | English (en) |
+| **Date Format** | yyyy-mm-dd |
+
+### Environment Variables
+
+Key configuration variables in `.env`:
+
+```env
+APP_NAME="Paket Masuk/Keluar System"
+APP_TIMEZONE=Asia/Jakarta
+APP_LOCALE=id
+APP_FALLBACK_LOCALE=en
+DB_CONNECTION=mysql
+DB_DATABASE=paket_system
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+## Language Switching
+
+### User Interface
+
+Click the language selector button (top-right corner) to switch between:
+- 🇮🇩 **Bahasa Indonesia** (id)
+- 🇺🇸 **English** (en)
+
+The language preference is stored in the session and persists during browsing.
+
+### In Code
+
+```php
+// Set language
+session(['locale' => 'id']);
+app()->setLocale('id');
+
+// Use translations
+echo __('messages.dashboard'); // Will show translated string
+```
+
+### Adding Translations
+
+Edit translation files:
+- English: `resources/lang/en/messages.php`
+- Indonesian: `resources/lang/id/messages.php`
+
+```php
+// Example in messages.php
+return [
+    'welcome' => 'Welcome',
+    'logout' => 'Logout',
+];
+```
+
+Use in Blade templates:
+```blade
+<h1>{{ __('messages.welcome') }}</h1>
+```
+
+## Project Structure
+
+```
+project/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── DashboardController.php
+│   │   │   └── LanguageController.php
+│   │   └── Middleware/
+│   │       └── SetLocale.php
+├── resources/
+│   ├── css/
+│   │   └── app.css (Tailwind)
+│   ├── js/
+│   │   └── app.js
+│   ├── lang/
+│   │   ├── en/messages.php
+│   │   └── id/messages.php
+│   └── views/
+│       ├── layouts/app.blade.php
+│       └── dashboard.blade.php
+├── routes/
+│   └── web.php
+├── config/
+│   ├── app.php
+│   └── database.php
+├── public/
+│   ├── index.php
+│   └── build/ (compiled assets)
+├── storage/
+├── tests/
+├── vite.config.js
+├── tailwind.config.js
+├── package.json
+└── composer.json
+```
+
+## Available Routes
+
+| Method | Route | Purpose |
+|--------|-------|---------|
+| GET | `/` | Redirects to dashboard |
+| GET | `/dashboard` | Main dashboard page |
+| GET | `/language/{locale}` | Switch language (id or en) |
+
+## Development Commands
+
+### Laravel Artisan
+
+```bash
+# Generate new controller
+php artisan make:controller MyController
+
+# Generate new model
+php artisan make:model MyModel
+
+# Generate migration
+php artisan make:migration create_table_name
+
+# Run migrations
+php artisan migrate
+
+# Clear all caches
+php artisan cache:clear
+```
+
+### Frontend Development
+
+```bash
+# Development with hot reload
+npm run dev
+
+# Production build
+npm run build
+
+# Build and watch
+npm run build -- --watch
+```
+
+### Database
+
+```bash
+# Create migration
+php artisan make:migration table_name
+
+# Run migrations
+php artisan migrate
+
+# Rollback last batch
+php artisan migrate:rollback
+
+# Reset database
+php artisan migrate:fresh
+php artisan migrate:fresh --seed
+```
+
+## Navigation Menu
+
+The application includes navigation links for:
+
+- **Dashboard** - Main dashboard with statistics
+- **Paket Masuk/Keluar** - Incoming/Outgoing parcels
+- **Data Paket** - Parcel data management
+- **Laporan** - Reports and analytics
+- **Pengaturan** - Settings
+
+(Placeholder links - ready for development)
+
+## File Locations
+
+| File | Purpose |
+|------|---------|
+| `.env` | Local environment configuration |
+| `.env.example` | Template for environment variables |
+| `SETUP.md` | Detailed setup and configuration guide |
+| `vite.config.js` | Vite build configuration |
+| `tailwind.config.js` | Tailwind CSS configuration |
+| `routes/web.php` | Web route definitions |
+
+## Troubleshooting
+
+### "Session driver not configured"
+```bash
+php artisan session:table
+php artisan migrate
+```
+
+### "Views not compiling"
+Ensure you're running the Vite dev server:
+```bash
+npm run dev
+```
+
+### "Database connection error"
+Check MySQL is running and update `.env` with correct credentials:
+```bash
+mysql -u root -p
+CREATE DATABASE paket_system;
+```
+
+### "Missing dependencies"
+Reinstall dependencies:
+```bash
+composer install
+npm install
+```
+
+## Performance Tips
+
+1. **Cache Configuration** (production):
+   ```bash
+   php artisan config:cache
+   php artisan route:cache
+   ```
+
+2. **Optimize Autoloader**:
+   ```bash
+   composer install --optimize-autoloader --no-dev
+   ```
+
+3. **Build Assets** for production:
+   ```bash
+   npm run build
+   ```
+
+## Documentation
+
+- **Setup Guide**: See `SETUP.md` for comprehensive setup instructions
+- **Laravel Docs**: https://laravel.com/docs
+- **Tailwind CSS**: https://tailwindcss.com/docs
+- **Vite**: https://vitejs.dev/guide
+
+## Security
+
+- CSRF tokens enabled by default
+- Environment variables protected
+- Secure password hashing (Bcrypt)
+- XSS protection via Blade escaping
+- SQL injection prevention via Eloquent
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open source and available under the MIT license.
+
+## Support
+
+For detailed setup and troubleshooting, refer to `SETUP.md`.
+
+---
+
+Built with ❤️ using Laravel 12, Tailwind CSS, and Vite
