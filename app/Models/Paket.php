@@ -82,19 +82,24 @@ class Paket extends Model
         ]);
     }
 
+    public function isBelumDiambil(): bool
+    {
+        return $this->status === PaketStatus::BELUM_DIAMBIL;
+    }
+
+    public function isDiambil(): bool
+    {
+        return $this->status === PaketStatus::DIAMBIL;
+    }
+
     public function isDiterima(): bool
     {
         return $this->status === PaketStatus::DITERIMA;
     }
 
-    public function isDiproses(): bool
+    public function isSalahWilayah(): bool
     {
-        return $this->status === PaketStatus::DIPROSES;
-    }
-
-    public function isDiantar(): bool
-    {
-        return $this->status === PaketStatus::DIANTAR;
+        return $this->status === PaketStatus::SALAH_WILAYAH;
     }
 
     public function isSelesai(): bool
