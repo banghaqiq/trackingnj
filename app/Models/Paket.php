@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PaketStatus;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -41,6 +42,15 @@ class Paket extends Model
         'tanggal_diterima' => 'datetime',
         'tanggal_diambil' => 'datetime',
     ];
+
+    public function scopeVisibleTo(Builder $query, User $user): Builder
+    {
+        if ($user->isKeamanan()) {
+            return $query->where('wilayah_id', $user->wilayah_id);
+        }
+
+        return $query;
+    }
 
     public function wilayah(): BelongsTo
     {
